@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <script src="./build/react.min.js" charset="utf-8"></script>
+  <script src="./build/react-dom.min.js" charset="utf-8"></script>
+  <script src="./build/browser.min.js" charset="utf-8"></script>
+
+  <style>
+    .pStyle {
+      font-size: 20px;
+    }
+  </style>
+
+  <body>
+    <div id="container1"></div>
+    <div id="container2"></div>
+  </body>
+
+  <script type="text/babel">
+
+    /*
+      创建一个组件类，用于输出Hello React
+      1.  React中创建的组件类以大写字母开头，驼峰命名法
+      2.  在React中使用React.createClass方法创建
+      3.  核心代码:每个组件类都必须实现自己的render方法，输出定义好的模版。返回值:null、false、组件模版
+      4.  注意：组件类只能包含一个顶层标签
+    */
+    var HelloMessage = React.createClass({
+      render: function() {
+        return <h1>Hello React</h1>;
+      }
+    });
+
+    ReactDOM.render(
+      // 在模版中插入<HelloMessage /> 会自动生成一个实例
+      <HelloMessage />,
+      document.getElementById("container1")
+    );
+
+
+    /*
+      设置组件样式
+      1.  内联样式
+      2.  对象样式
+      3.  选择器样式
+
+      <div>       内联样式
+        <h1></h1> 对象样式
+        <p></p>   选择器样式
+      </div>
+      注意事项:在React和HTML5中设置样式时的书写格式是有区别的
+      在React中使用选择器样式设置组件样式时，属性名不能使用class，需要使用className替换。
+      类似的：使用htmlFor替换for
+    */
+
+    //创建设置h1样式对象
+    var hStype = {
+      backgroundColor: "green",
+      color: "red"
+    }
+
+    var ShowMessage = React.createClass({
+      render: function() {
+        return (
+          <div style={{backgroundColor:"yellow", borderWidth:5, borderColor:"black", borderStyle:"solid"}}>
+            <h1 style={hStype}>{this.props.firstRow}</h1>
+            <p className="pStyle">{this.props.secondRow}</p>
+          </div>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <ShowMessage firstRow="你好" secondRow="哈哈"/>,
+      document.getElementById("container2")
+    );
+  </script>
+</html>

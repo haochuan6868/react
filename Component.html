@@ -18,12 +18,13 @@
   <body>
     <div id="container1"></div>
     <div id="container2"></div>
+    <div id="container3"></div>
   </body>
 
   <script type="text/babel">
 
     /*
-      创建一个组件类，用于输出Hello React
+      一、创建一个组件类，用于输出Hello React
       1.  React中创建的组件类以大写字母开头，驼峰命名法
       2.  在React中使用React.createClass方法创建
       3.  核心代码:每个组件类都必须实现自己的render方法，输出定义好的模版。返回值:null、false、组件模版
@@ -43,7 +44,7 @@
 
 
     /*
-      设置组件样式
+      二、设置组件样式
       1.  内联样式
       2.  对象样式
       3.  选择器样式
@@ -75,8 +76,46 @@
     });
 
     ReactDOM.render(
-      <ShowMessage firstRow="你好" secondRow="哈哈"/>,
+      <ShowMessage firstRow="Hello" secondRow="React"/>,
       document.getElementById("container2")
+    );
+
+    /*
+      三、复合组件
+      也被称为组合组件，创建多个组件合成一个组件
+
+      定义一个组件WebShow。功能：输出网站的名字和网址，网址是一个可以点击的链接
+      分析：定义一个组件WebName负责输出网站的名字，定义组件WebLink显示网站的网址，并且可以点击
+    */
+
+    //定义WebName
+    var WebName = React.createClass({
+      render: function() {
+        return <h1>正定在线</h1>
+      }
+    });
+
+    //定义WebLink组件
+    var WebLink = React.createClass({
+      render: function() {
+        return <a href="http://www.zhengdingzx.com">http://www.zhengdingzx.com</a>
+      }
+    });
+
+    //WebShow
+    var WebShow = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <WebName />
+            <WebLink />
+          </div>
+        );
+      }
+    });
+    ReactDOM.render(
+      <WebShow />,
+      document.getElementById("container3")
     );
   </script>
 </html>

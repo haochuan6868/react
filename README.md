@@ -1,3 +1,5 @@
 Some React dome .
-
-dome 1. hello world
+===
+Dome 1. hello world
+---
+Dome 2. 组件 Component

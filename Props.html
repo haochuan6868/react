@@ -13,6 +13,8 @@
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>
+    <div id="container4"></div>
+    <div id="container5"></div>
   </body>
 
   <script type="text/babel">
@@ -123,5 +125,43 @@
         document.getElementById("container3")
     );
 
+
+    /*
+        属性验证 propTypes
+        组件类的属性
+        用于验证组件实例的属性是否符合要求
+    */
+    var ShowTitle = React.createClass({
+        propTypes: {
+            // title 数据类型必须为字符串
+            title: React.PropTypes.string.isRequired
+        },
+        render: function() {
+            return <h1>{this.props.title}</h1>
+        }
+    });
+    ReactDOM.render(
+        <ShowTitle title="正定在线" />,
+        document.getElementById("container4")
+    );
+
+    /*
+        设置组件属性的默认值
+        通过实现组件的getDefaultProps方法，对属性设置默认值
+    */
+    var MyTitle = React.createClass({
+        getDefaultProps: function() {
+            return {
+                title: "正定在线zhengdingzx"
+            }
+        },
+        render: function() {
+            return <h1>{this.props.title}</h1>
+        }
+    });
+    ReactDOM.render(
+        <MyTitle />,
+        document.getElementById("container5")
+    );
   </script>
 </html>

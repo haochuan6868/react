@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <script src="./build/react.min.js" charset="utf-8"></script>
+  <script src="./build/react-dom.min.js" charset="utf-8"></script>
+  <script src="./build/browser.min.js" charset="utf-8"></script>
+
+  <body>
+    <div id="container"></div>
+  </body>
+
+  <script type="text/babel">
+
+    /*
+        生命周期各个阶段介绍
+    */
+    var Demo = React.createClass({
+        /*
+            一、创建阶段
+            流程：
+                只调用getDefaultProps方法
+        */
+        getDefaultProps: function() {
+            //在创建类的时候被调用，设置this.props的默认值
+            console.log("getDefaultProps");
+            return {};
+        },
+        /*
+            二、实例化阶段
+            流程：
+                getInitialState
+                componentWillMount
+                render
+                componentDidMount
+        */
+        getInitialState: function() {
+            //设置this.state的默认值
+            console.log("getInitialState");
+            return null;
+        },
+        componentWillMount: function() {
+            //在render之前调用
+            console.log("componentWillMount");
+        },
+        render:function() {
+            //渲染并返回一个虚拟DOM
+            console.log("render");
+            return <div>Hello React</div>
+        },
+        componentDidMount: function() {
+            //在render之后调用
+            //在该方法中，React会使用render方法返回的虚拟DOM对象创建真实的DOM结构
+            //可以在这个方法中读取DOM节点
+            console.log("componentDidMount");
+        },
+        /*
+            三、更新阶段
+            流程：
+                componentWillReceiveProps
+                shouldComponentUpdate     如果返回值是false，后三个方法不执行
+                componentWillUpdate
+                render
+                componentDidUpdate
+        */
+        componentWillReceiveProps: function() {
+            console.log("componentWillReceiveProps");
+        },
+        shouldComponentUpdate: function() {
+            //是否需要更新
+            console.log("shouldComponentUpdate");
+            return true;
+        },
+        componentDidUpdate: function() {
+            console.log("componentDidUpdate");
+        },
+        /*
+            四、销毁阶段
+            流程：
+                componentWillUnmount
+        */
+        componentWillUnmount:function () {
+            console.log("componentWillUnmount");
+        }
+    });
+    //第一次创建并加载组件
+    ReactDOM.render(
+        <Demo />,
+        document.getElementById("container")
+    );
+
+    //重新渲染组件
+    ReactDOM.render(
+        <Demo />,
+        document.getElementById("container")
+    );
+
+    //移除组件
+    ReactDOM.unmountComponentAtNode(document.getElementById("container"));    
+  </script>
+</html>

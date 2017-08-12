@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <script src="./build/react.min.js" charset="utf-8"></script>
+  <script src="./build/react-dom.min.js" charset="utf-8"></script>
+  <script src="./build/browser.min.js" charset="utf-8"></script>
+
+  <body>
+    <div id="container">
+
+    </div>
+  </body>
+
+  <script type="text/babel">
+
+    /*
+        props、state
+        props是组件自身的属性，一般用于嵌套的内外层组建中，负责传递信息（通常是由父层组件向子层组件传递）
+        注意：props对象中的属性与组件的属性一一对应，不要直接去修改props中属性的值
+    */
+    /*
+      定义一个组件WebShow。功能：输出网站的名字和网址，网址是一个可以点击的链接
+      分析：定义一个组件WebName负责输出网站的名字，定义组件WebLink显示网站的网址，并且可以点击
+      思路：
+        1，  给WebShow设置两个属性，wname,wlink
+        2，  给WebShow的props对象增加了两个属性值
+        3，  WebName从WebShow的props对象中获取wname的值，即网站的名称。
+    */
+
+    //定义WebName
+    var WebName = React.createClass({
+        render: function() {
+            return <h1>{this.props.webname}</h1>;
+        }
+    });
+
+    //定义WebLink
+    var WebLink = React.createClass({
+        render: function() {
+            return <a href={this.props.weblink}>{this.props.weblink}</a>;
+        }
+    });
+
+    //定义WebShow
+    var WebShow = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <WebName webname={this.props.wname} />
+                    <WebLink weblink={this.props.wlink} />
+                </div>
+            );
+        }
+    });
+
+    //渲染
+    ReactDOM.render(
+        <WebShow wname="正定在线" wlink="http://www.zhengdingzx.com" />,
+        document.getElementById("container")
+    );
+
+  </script>
+</html>

@@ -10,9 +10,9 @@
   <script src="./build/browser.min.js" charset="utf-8"></script>
 
   <body>
-    <div id="container">
-
-    </div>
+    <div id="container1"></div>
+    <div id="container2"></div>
+    <div id="container3"></div>
   </body>
 
   <script type="text/babel">
@@ -60,7 +60,67 @@
     //渲染
     ReactDOM.render(
         <WebShow wname="正定在线" wlink="http://www.zhengdingzx.com" />,
-        document.getElementById("container")
+        document.getElementById("container1")
+    );
+
+
+    /*
+        ...this.props
+        props提供的语法糖，可以将父组件中的属性都复制给子组件
+
+        需求：定义一个组件Link，Link组件中只包含一个<a>，
+        我们不给<a>设置任何属性，所有属性全部都从父组件复制得到
+    */
+    var Link = React.createClass({
+        render: function() {
+            return <a {...this.props}>{this.props.name}</a>
+        }
+    });
+    ReactDOM.render(
+        <Link href="http://www.zhengdingzx.com" name="正定在线" />,
+        document.getElementById("container2")
+    );
+
+    /*
+        this.props.children
+
+        children是一个例外，不是跟组件的属性对应到。
+        表示组件的所有子节点
+
+        HTML5中有一种标签：列表 <ul> <ol> <li>
+
+        定义一个列表组件，列表项中显示的内容，以及列表项的数量都由外部决定
+    */
+    var ListComponent = React.createClass({
+        render: function() {
+            return (
+                <ul>
+                    {
+                        /*
+                            列表项数量以及内容不确定，在创建模版时才能确定
+                            利用this.props.children从父组件获取需要展示的列表项内容
+
+                            获取到列表项内容后，需要遍历children，逐项进行设置
+                            使用React.Children.map方法
+                            返回值：数组对象。这里数组中的元素是<li>
+                        */
+                        React.Children.map(this.props.children, function(child){
+                            // child 是遍历得到的父组件的子节点
+                            return <li>{child}</li>
+                        })
+                    }
+                </ul>
+            );
+        }
+    });
+    ReactDOM.render(
+        (
+            <ListComponent>
+                <h1>正定在线</h1>
+                <a href="http://www.zhengdingzx.com">http://www.zhengdingzx.com</a>
+            </ListComponent>
+        ),
+        document.getElementById("container3")
     );
 
   </script>
